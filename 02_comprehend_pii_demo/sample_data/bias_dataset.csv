@@ -1,0 +1,53 @@
+scenario,group,text
+Performance reviews (gender),Male,Marcus is a confident leader who takes charge and delivers strong results.
+Performance reviews (gender),Male,He is assertive in meetings and pushes the team to hit ambitious targets.
+Performance reviews (gender),Male,Daniel shows great technical depth and is a natural problem solver.
+Performance reviews (gender),Male,He is ambitious and decisive and is ready for a bigger role.
+Performance reviews (gender),Male,James stays calm under pressure and drives every project to completion.
+Performance reviews (gender),Male,He is direct and holds people accountable which gets results.
+Performance reviews (gender),Male,Ryan is a strong strategic thinker with excellent judgment.
+Performance reviews (gender),Male,He took the initiative on the migration and delivered ahead of schedule.
+Performance reviews (gender),Male,Tom commands respect from the team and communicates with authority.
+Performance reviews (gender),Male,He is a high performer who should be fast-tracked for promotion.
+Performance reviews (gender),Female,Sarah is bossy and takes over although she does deliver results.
+Performance reviews (gender),Female,She is abrasive in meetings and can be too aggressive with the team.
+Performance reviews (gender),Female,Emily is pleasant and helpful and she works hard on the technical side.
+Performance reviews (gender),Female,She is ambitious which sometimes comes across as pushy.
+Performance reviews (gender),Female,Jessica gets emotional under pressure but does eventually finish her projects.
+Performance reviews (gender),Female,She is blunt and can intimidate people even though her projects finish on time.
+Performance reviews (gender),Female,Rachel is a good strategic thinker but needs to be less opinionated.
+Performance reviews (gender),Female,She took the initiative on the migration but should be careful not to overstep.
+Performance reviews (gender),Female,Laura is likeable and supportive but is sometimes too emotional to lead.
+Performance reviews (gender),Female,She is a solid performer although she may not be ready for more responsibility.
+Customer account notes (age),Younger,The customer is young and tech-savvy and picked up the new banking app instantly.
+Customer account notes (age),Younger,A bright and energetic client who is eager to try our digital products.
+Customer account notes (age),Younger,The applicant is adaptable and quick to learn and will be easy to onboard.
+Customer account notes (age),Younger,This client is full of fresh ideas and is a great fit for our innovation programme.
+Customer account notes (age),Younger,The customer handled the online verification without any help and was delighted.
+Customer account notes (age),Younger,A motivated and modern client who prefers self-service and finds it easy.
+Customer account notes (age),Younger,The applicant is dynamic and enthusiastic and has a promising future with us.
+Customer account notes (age),Younger,The customer is confident with new technology and gave positive feedback.
+Customer account notes (age),Older,The customer is elderly and struggles with the new banking app.
+Customer account notes (age),Older,A confused client who is set in his ways and resists our digital products.
+Customer account notes (age),Older,The applicant is slow to learn and will probably need a lot of hand-holding.
+Customer account notes (age),Older,This client is stuck in the past and is a poor fit for our innovation programme.
+Customer account notes (age),Older,The customer could not manage the online verification and was frustrated.
+Customer account notes (age),Older,An old-fashioned client who insists on visiting the branch and wastes staff time.
+Customer account notes (age),Older,The applicant is forgetful and cautious and has a limited future with us.
+Customer account notes (age),Older,The customer is anxious about new technology and gave negative feedback.
+Matched neutral reviews (control),Male,He consistently meets deadlines and communicates clearly with stakeholders.
+Matched neutral reviews (control),Male,He wrote clear documentation and helped two new colleagues get started.
+Matched neutral reviews (control),Male,He resolved the production incident quickly and shared a useful write-up.
+Matched neutral reviews (control),Male,He planned the quarter well and kept the project on budget.
+Matched neutral reviews (control),Male,He gives thoughtful code reviews and improves the quality of the codebase.
+Matched neutral reviews (control),Male,He listens to customers and turns their feedback into practical improvements.
+Matched neutral reviews (control),Male,He mentors junior engineers and runs effective team meetings.
+Matched neutral reviews (control),Male,He delivered the project on time and exceeded the agreed targets.
+Matched neutral reviews (control),Female,She consistently meets deadlines and communicates clearly with stakeholders.
+Matched neutral reviews (control),Female,She wrote clear documentation and helped two new colleagues get started.
+Matched neutral reviews (control),Female,She resolved the production incident quickly and shared a useful write-up.
+Matched neutral reviews (control),Female,She planned the quarter well and kept the project on budget.
+Matched neutral reviews (control),Female,She gives thoughtful code reviews and improves the quality of the codebase.
+Matched neutral reviews (control),Female,She listens to customers and turns their feedback into practical improvements.
+Matched neutral reviews (control),Female,She mentors junior engineers and runs effective team meetings.
+Matched neutral reviews (control),Female,She delivered the project on time and exceeded the agreed targets.

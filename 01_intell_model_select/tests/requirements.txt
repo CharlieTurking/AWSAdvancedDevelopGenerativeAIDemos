@@ -1,0 +1,9 @@
+# Test-only dependencies for the jev-router-comparison tests.
+# These are intentionally NOT added to lambda/requirements.txt: the Lambda
+# package stays dependency-free apart from the bundled boto3.
+#
+# Run the suite with:
+#   pip install -r tests/requirements.txt
+#   pytest
+pytest==8.3.4
+hypothesis==6.170.14

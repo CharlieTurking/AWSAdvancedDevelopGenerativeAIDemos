@@ -1,0 +1,18 @@
+# Virtual envs
+.venv/
+venv/
+
+# Local SHAP generated artifacts
+01_local_shap/data/
+01_local_shap/artifacts/
+01_local_shap/outputs/
+
+# SageMaker Clarify generated artifacts / state
+02_sagemaker_clarify/.demo_state.json
+02_sagemaker_clarify/clarify_report/
+02_sagemaker_clarify/train.csv
+02_sagemaker_clarify/train_noheader.csv
+02_sagemaker_clarify/train_dl.csv
+
+__pycache__/
+*.pyc

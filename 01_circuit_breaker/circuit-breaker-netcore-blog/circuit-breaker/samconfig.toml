@@ -1,0 +1,9 @@
+version = 0.1
+
+[default.build.parameters]
+dotnet_cli_local_tool = true
+use_container = false
+skip_pull_image = true
+cached = true
+parallel = true
+

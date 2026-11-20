@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Comprehend Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+    <header class="demo-header">
+        <h1>Amazon Comprehend Demo</h1>
+        <p class="subtitle">Find PII, mask it, and look for signs of bias in text</p>
+        <span class="info-badge">Advanced Generative AI Development on AWS</span>
+    </header>
+
+    <div id="banner" class="banner" role="alert" hidden></div>
+
+    <nav class="nav" aria-label="Demo pages">
+        <a href="#pii" data-nav="pii">1. PII detection</a>
+        <a href="#mask" data-nav="mask">2. Mask PII</a>
+        <a href="#bias" data-nav="bias">3. Spot possible bias</a>
+    </nav>
+
+    <main>
+
+        <!-- ============================ Page 1: PII detection ============================ -->
+        <section id="page-pii" class="page card">
+            <h2>Real-time PII detection with Amazon Comprehend</h2>
+            <p class="caption">
+                Comprehend's <code>DetectPiiEntities</code> API returns each PII entity's type, confidence
+                score and character offsets. It does not change the text (see page 2 for masking).
+            </p>
+            <details class="code-panel" open>
+                <summary>Show the code that calls Comprehend</summary>
+                <div class="code-target" data-fns="get_comprehend_client,detect_pii"></div>
+            </details>
+
+            <label for="pii-text" class="field-label">Type or paste text containing possible PII</label>
+            <textarea id="pii-text" rows="7" placeholder="Example: My name is John Smith and my phone number is 555-123-4567."></textarea>
+            <div class="controls">
+                <label class="inline"><input type="checkbox" id="pii-auto" checked> Detect PII in real time (after you pause typing)</label>
+                <button id="pii-run" class="btn">Detect PII now</button>
+                <span id="pii-status" class="status" aria-live="polite"></span>
+            </div>
+
+            <div id="pii-results" hidden>
+                <p id="pii-empty" class="verdict ok" hidden>No PII entities detected.</p>
+                <div id="pii-found" hidden>
+                    <h3>Your text, with PII highlighted</h3>
+                    <pre id="pii-highlight" class="textbox"></pre>
+                    <h3>Detected PII entities</h3>
+                    <table id="pii-table" class="data-table"></table>
+                    <details class="raw">
+                        <summary>Raw response (JSON)</summary>
+                        <pre id="pii-raw" class="code"></pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== Page 2: Mask PII ============================== -->
+        <section id="page-mask" class="page card" hidden>
+            <h2>Mask PII with Amazon Comprehend</h2>
+            <p class="caption">
+                Comprehend finds <em>where</em> the PII is (type, score, start and end offset). The masking itself is a few
+                lines of Python that replace those spans, so you decide how it looks.
+            </p>
+            <details class="code-panel" open>
+                <summary>Show the code that calls Comprehend</summary>
+                <div class="code-target" data-fns="detect_pii,mask_text"></div>
+            </details>
+            <p class="caption">
+                Comprehend can also redact for you with an asynchronous batch job
+                (<code>start_pii_entities_detection_job</code> with <code>Mode='ONLY_REDACTION'</code>) that reads from and
+                writes to S3. This page uses the synchronous call so the result is instant.
+            </p>
+
+            <label for="mask-sample" class="field-label">Sample text</label>
+            <select id="mask-sample"></select>
+            <label for="mask-text" class="field-label">Text to mask</label>
+            <textarea id="mask-text" rows="9"></textarea>
+            <div class="controls">
+                <button id="mask-run" class="btn">Detect PII</button>
+                <span id="mask-status" class="status" aria-live="polite"></span>
+            </div>
+
+            <div id="mask-results" hidden>
+                <p id="mask-empty" class="verdict ok" hidden>No PII entities detected, so there is nothing to mask.</p>
+                <div id="mask-found" hidden>
+                    <h3>Masking options</h3>
+                    <div class="options">
+                        <fieldset>
+                            <legend>Replace PII with</legend>
+                            <label class="inline"><input type="radio" name="mask-style" value="type" checked> Entity type, e.g. [EMAIL]</label>
+                            <label class="inline"><input type="radio" name="mask-style" value="mask"> Mask characters, e.g. ******</label>
+                            <label class="inline"><input type="radio" name="mask-style" value="redacted"> [REDACTED]</label>
+                            <label class="inline">Mask character
+                                <input type="text" id="mask-char" value="*" maxlength="1" size="2" disabled>
+                            </label>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Minimum confidence: <span id="mask-min-val">0.50</span></legend>
+                            <input type="range" id="mask-min" min="0" max="1" step="0.05" value="0.5">
+                            <p class="hint">Entities scoring below this are left as they are. Try raising it above 0.7.</p>
+                        </fieldset>
+                        <fieldset>
+                            <legend>PII types to mask</legend>
+                            <div id="mask-types" class="checks"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="two-col">
+                        <div>
+                            <h3>Original</h3>
+                            <pre id="mask-original" class="textbox"></pre>
+                        </div>
+                        <div>
+                            <h3 id="mask-masked-title">Masked</h3>
+                            <pre id="mask-masked" class="textbox"></pre>
+                        </div>
+                    </div>
+
+                    <h3>What Comprehend found</h3>
+                    <table id="mask-table" class="data-table"></table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================== Page 3: Spot possible bias ========================== -->
+        <section id="page-bias" class="page card" hidden>
+            <h2>Spotting possible bias with Amazon Comprehend</h2>
+            <p class="notice">
+                <strong>Comprehend has no bias-detection API.</strong> What it gives you are signals: sentiment and toxicity.
+                This page uses them two ways: (1) compare sentiment across demographic groups for text that should be
+                treated alike, and (2) flag hateful or abusive wording. A gap is a prompt to investigate, not proof of bias.
+                For statistical bias audits of datasets and models, use Amazon SageMaker Clarify.
+            </p>
+
+            <div class="subtabs" role="tablist">
+                <button class="subtab active" data-subtab="sentiment" role="tab">Sentiment by group</button>
+                <button class="subtab" data-subtab="toxicity" role="tab">Toxic and hateful language</button>
+            </div>
+
+            <!-- ---- Sentiment by group ---- -->
+            <div id="bias-panel-sentiment" class="subpanel">
+                <p class="caption">
+                    Run text about different groups through Comprehend's sentiment analysis and compare the averages. If
+                    equivalent situations get systematically more negative wording for one group, that is a bias signal.
+                </p>
+                <details class="code-panel" open>
+                    <summary>Show the code that calls Comprehend</summary>
+                    <div class="code-target" data-fns="detect_sentiments,net_sentiment"></div>
+                </details>
+
+                <div class="controls">
+                    <span class="field-label">Data</span>
+                    <label class="inline"><input type="radio" name="bias-source" value="sample" checked> Sample dataset</label>
+                    <label class="inline"><input type="radio" name="bias-source" value="upload"> Upload my own CSV</label>
+                </div>
+
+                <div id="bias-sample-wrap">
+                    <label for="bias-scenario" class="field-label">Scenario</label>
+                    <select id="bias-scenario"></select>
+                    <a id="bias-download" class="link" href="sample_data/bias_dataset.csv" download="bias_dataset.csv">Download the sample dataset (CSV)</a>
+                </div>
+                <div id="bias-upload-wrap" hidden>
+                    <label for="bias-file" class="field-label">CSV with the columns <code>group</code> and <code>text</code></label>
+                    <input type="file" id="bias-file" accept=".csv,text/csv">
+                    <p id="bias-upload-msg" class="hint"></p>
+                </div>
+
+                <div id="bias-preview-wrap" class="scroll" hidden>
+                    <table id="bias-preview" class="data-table"></table>
+                </div>
+                <div class="controls">
+                    <button id="bias-run" class="btn" disabled>Analyse sentiment with Comprehend</button>
+                    <span id="bias-status" class="status" aria-live="polite"></span>
+                </div>
+
+                <div id="bias-results" hidden>
+                    <h3>Sentiment by group</h3>
+                    <label for="bias-threshold" class="field-label">
+                        Flag a gap in average net sentiment of at least <strong id="bias-threshold-val">0.25</strong>
+                    </label>
+                    <input type="range" id="bias-threshold" min="0.05" max="1" step="0.05" value="0.25">
+                    <p class="hint">Net sentiment = Positive score minus Negative score, from -1 to +1.</p>
+                    <table id="bias-summary" class="data-table"></table>
+                    <div id="bias-bars" class="bars"></div>
+                    <p id="bias-verdict" class="verdict"></p>
+                    <p class="hint">Small samples are noisy. A real review needs far more data and a significance test.</p>
+                    <details class="raw">
+                        <summary>Every text and its sentiment</summary>
+                        <div class="scroll"><table id="bias-rows" class="data-table"></table></div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- ---- Toxic and hateful language ---- -->
+            <div id="bias-panel-toxicity" class="subpanel" hidden>
+                <p class="caption">
+                    Comprehend's toxicity detection scores each text from 0 to 1 and labels it: <code>HATE_SPEECH</code>,
+                    <code>INSULT</code>, <code>HARASSMENT_OR_ABUSE</code>, <code>VIOLENCE_OR_THREAT</code>,
+                    <code>PROFANITY</code>, <code>SEXUAL</code> and <code>GRAPHIC</code>. <code>HATE_SPEECH</code> is the
+                    label closest to bias.
+                </p>
+                <details class="code-panel" open>
+                    <summary>Show the code that calls Comprehend</summary>
+                    <div class="code-target" data-fns="detect_toxicity"></div>
+                </details>
+
+                <label for="tox-text" class="field-label">One text per line</label>
+                <textarea id="tox-text" rows="9"></textarea>
+                <label for="tox-threshold" class="field-label">Flag a label scoring at least <strong id="tox-threshold-val">0.50</strong></label>
+                <input type="range" id="tox-threshold" min="0.1" max="0.95" step="0.05" value="0.5">
+                <div class="controls">
+                    <button id="tox-run" class="btn">Check toxicity with Comprehend</button>
+                    <span id="tox-status" class="status" aria-live="polite"></span>
+                </div>
+
+                <div id="tox-results" hidden>
+                    <div class="scroll"><table id="tox-table" class="data-table"></table></div>
+                    <p class="hint">
+                        Toxicity detection catches hostile language. Polite or subtle stereotypes can score low, so use it
+                        alongside the group comparison rather than instead of it.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        Text you enter is sent to Amazon Comprehend through this demo's API and is not stored by the demo.
+        Use sample or made-up data.
+    </footer>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

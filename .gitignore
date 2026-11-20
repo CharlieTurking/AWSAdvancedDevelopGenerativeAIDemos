@@ -1,0 +1,75 @@
+# ---- Python virtual environments ----
+.venv/
+venv/
+env/
+testenv/
+**/.venv/
+**/venv/
+**/testenv/
+
+# ---- Python caches ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ---- Node ----
+node_modules/
+
+# ---- CDK / build artifacts ----
+cdk.out/
+**/cdk.out/
+bin/Debug/
+bin/Release/
+obj/
+**/bin/Debug/
+**/bin/Release/
+**/obj/
+
+# ---- Bundled Lambda dependencies (vendored boto3/botocore/etc.) ----
+01_intell_model_select/lambda/boto3/
+01_intell_model_select/lambda/botocore/
+01_intell_model_select/lambda/dateutil/
+01_intell_model_select/lambda/jmespath/
+01_intell_model_select/lambda/s3transfer/
+01_intell_model_select/lambda/urllib3/
+01_intell_model_select/lambda/bin/
+
+# ---- Archives / large binaries ----
+*.zip
+*.tgz
+*.so
+*.so.*
+*.dll
+*.a
+*.dylib
+*.bc
+
+# ---- Env / secrets ----
+.env
+*.env
+.env.*
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+
+# ---- AWS SAM build output ----
+.aws-sam/
+**/.aws-sam/
+
+# ---- Vendored dist-info metadata ----
+01_intell_model_select/lambda/*.dist-info/
+01_intell_model_select/lambda/six.py
+
+# ---- Excluded project folders ----
+05_agentcore/
+00_misc/
+
+# ---- Comprehend demo (AWS) build output ----
+02_comprehend_pii_demo/aws/build/
+02_comprehend_pii_demo/aws/outputs.json
+# ---- Deployment outputs (account IDs, endpoints) ----
+outputs.json
+**/outputs.json

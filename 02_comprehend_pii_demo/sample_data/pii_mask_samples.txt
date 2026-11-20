@@ -1,0 +1,17 @@
+### Customer support email
+Hi, my name is Priya Sharma and I need to update my account. My date of birth is 14/03/1987 and I live at 22 Elm Street, Winchester, SO21 3RL. You can reach me on 07700 900123 or at priya.sharma@example.com. My card number is 4111 1111 1111 1111, it expires 09/28 and the CVV is 123. My national insurance number is QQ123456C.
+---
+### Support chat transcript
+Agent: Thanks for contacting us, can I take your name?
+Customer: Sure, it's David Patel. I can't log in. My username is dpatel_82 and my password is Summer2024!
+Agent: Thanks David. I can see a login from 192.168.10.24, is that you?
+Customer: Yes. Please send the reset link to david.patel@example.com or text me on 555-123-4567.
+---
+### Order spreadsheet rows
+Alice Johnson	AliceJohnson@mail.com	LEGO Star Wars Millennium Falcon	£149.99
+Ben Thompson	BenThompson@mail.com	LEGO Technic Lamborghini	£349.99
+Chloe Smith	ChloeSmith@mail.com	LEGO Friends Heartlake City	£59.99
+David Patel	DavidPatel@mail.com	LEGO City Police Station	£89.99
+---
+### Doctor's note (US)
+Patient Maria Garcia, SSN 123-45-6789, was seen on March 3rd at 410 Oak Avenue, Springfield. Her bank account number is 000123456789 with routing number 021000021. Please call her on (555) 987-6543.

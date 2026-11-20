@@ -1,0 +1,9 @@
+# python3 -m venv .venv
+# source .venv/bin/activate
+# pip install -r requirements.txt
+# streamlit run app.py
+streamlit==1.66.1
+boto3==1.43.123
+
+# Test dependency (property-based tests)
+hypothesis==6.170.14

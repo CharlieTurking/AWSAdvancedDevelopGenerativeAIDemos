@@ -1,0 +1,64 @@
+{
+  "llm_models": [
+    {
+      "id": "us.anthropic.claude-haiku-5-5",
+      "label": "Claude Haiku 5.5 (us)",
+      "default": true,
+      "supports_temperature": false
+    },
+    {
+      "id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "label": "Claude Haiku 4.5 (us)",
+      "supports_temperature": true
+    },
+    {
+      "id": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "label": "Claude Haiku 4.5 (global)",
+      "supports_temperature": true
+    },
+    {
+      "id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "label": "Claude Sonnet 4.5 (us)",
+      "supports_temperature": true
+    },
+    {
+      "id": "amazon.nova-pro-v1:0",
+      "label": "Amazon Nova Pro",
+      "supports_temperature": true
+    },
+    {
+      "id": "amazon.nova-lite-v1:0",
+      "label": "Amazon Nova Lite",
+      "supports_temperature": true
+    },
+    {
+      "id": "amazon.nova-micro-v1:0",
+      "label": "Amazon Nova Micro",
+      "supports_temperature": true
+    },
+    {
+      "id": "openai.gpt-oss-20b-1:0",
+      "label": "OpenAI GPT OSS 20B",
+      "supports_temperature": false
+    }
+  ],
+  "embedding_models": [
+    {
+      "id": "amazon.titan-embed-text-v2:0",
+      "label": "Titan Text Embeddings v2",
+      "default": true
+    },
+    {
+      "id": "amazon.titan-embed-text-v1",
+      "label": "Titan Text Embeddings v1"
+    },
+    {
+      "id": "cohere.embed-english-v3",
+      "label": "Cohere Embed English v3"
+    },
+    {
+      "id": "cohere.embed-multilingual-v3",
+      "label": "Cohere Embed Multilingual v3"
+    }
+  ]
+}
