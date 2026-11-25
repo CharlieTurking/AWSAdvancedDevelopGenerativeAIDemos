@@ -1,0 +1,146 @@
+[
+ {
+  "text": "The production website is down and customers see a 503 error.",
+  "topic": "incidents"
+ },
+ {
+  "text": "Major outage affecting the payment service since 09:15 UTC.",
+  "topic": "incidents"
+ },
+ {
+  "text": "Service unavailable: the API gateway is not responding.",
+  "topic": "incidents"
+ },
+ {
+  "text": "Unplanned downtime hit the checkout system for two hours.",
+  "topic": "incidents"
+ },
+ {
+  "text": "Root cause analysis found that the disk filled up with log files.",
+  "topic": "incidents"
+ },
+ {
+  "text": "The on-call engineer was paged at 3 a.m. after the database crashed.",
+  "topic": "incidents"
+ },
+ {
+  "text": "We rolled back the release after error rates spiked.",
+  "topic": "incidents"
+ },
+ {
+  "text": "The post-incident review listed five action items.",
+  "topic": "incidents"
+ },
+ {
+  "text": "Auto scaling added more instances when CPU usage went above 70 percent.",
+  "topic": "cloud"
+ },
+ {
+  "text": "Our containers run on a managed Kubernetes cluster.",
+  "topic": "cloud"
+ },
+ {
+  "text": "Objects are stored in a bucket with versioning enabled.",
+  "topic": "cloud"
+ },
+ {
+  "text": "A serverless function processes each upload event.",
+  "topic": "cloud"
+ },
+ {
+  "text": "Reserved instances reduce the monthly compute bill.",
+  "topic": "cloud"
+ },
+ {
+  "text": "Infrastructure is defined as code and deployed from a pipeline.",
+  "topic": "cloud"
+ },
+ {
+  "text": "Data is replicated across three availability zones for resilience.",
+  "topic": "cloud"
+ },
+ {
+  "text": "A phishing email tricked an employee into sharing a password.",
+  "topic": "security"
+ },
+ {
+  "text": "Attackers stole credentials and logged in to the admin console.",
+  "topic": "security"
+ },
+ {
+  "text": "Enable multi-factor authentication for every privileged account.",
+  "topic": "security"
+ },
+ {
+  "text": "The vulnerability was patched after a critical CVE was published.",
+  "topic": "security"
+ },
+ {
+  "text": "Encrypt data at rest and in transit with managed keys.",
+  "topic": "security"
+ },
+ {
+  "text": "A firewall rule blocked suspicious traffic from unknown addresses.",
+  "topic": "security"
+ },
+ {
+  "text": "Ransomware encrypted the file share and demanded payment.",
+  "topic": "security"
+ },
+ {
+  "text": "DNS lookups failed so users could not reach the site by name.",
+  "topic": "networking"
+ },
+ {
+  "text": "High latency between regions slowed down the replication job.",
+  "topic": "networking"
+ },
+ {
+  "text": "The load balancer sends requests to healthy servers only.",
+  "topic": "networking"
+ },
+ {
+  "text": "A misconfigured route table dropped packets to the private subnet.",
+  "topic": "networking"
+ },
+ {
+  "text": "The VPN connection keeps timing out for remote staff.",
+  "topic": "networking"
+ },
+ {
+  "text": "Packet loss on the WAN link caused video calls to stutter.",
+  "topic": "networking"
+ },
+ {
+  "text": "Certificate expiry broke HTTPS connections to the internal portal.",
+  "topic": "networking"
+ },
+ {
+  "text": "The server room needs better cooling before summer.",
+  "topic": "incidents"
+ },
+ {
+  "text": "The bakery sells fresh sourdough bread every morning.",
+  "topic": "unrelated"
+ },
+ {
+  "text": "Our football team won the championship last weekend.",
+  "topic": "unrelated"
+ },
+ {
+  "text": "The recipe calls for two cups of flour and a pinch of salt.",
+  "topic": "unrelated"
+ },
+ {
+  "text": "It rained all afternoon so the picnic was moved indoors.",
+  "topic": "unrelated"
+ },
+ {
+  "text": "She planted tomatoes and basil in the garden.",
+  "topic": "unrelated"
+ },
+ {
+  "text": "The museum opens a new painting exhibition next month.",
+  "topic": "unrelated"
+ }
+]

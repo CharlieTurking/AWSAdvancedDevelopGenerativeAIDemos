@@ -1,0 +1,13 @@
+# python3 -m venv .venv && source .venv/bin/activate
+# pip install -r requirements.txt
+# streamlit run app.py
+# (torch is large; the CPU build is enough: pip install torch --index-url https://download.pytorch.org/whl/cpu)
+streamlit>=1.66,<2
+tiktoken>=0.6
+plotly>=5.18
+scikit-learn>=1.5
+numpy>=2.1
+pandas>=2.2
+torch>=2.2
+transformers>=4.40
+sentence-transformers>=3.0
