@@ -37,3 +37,58 @@ SAMPLE_QUERIES: list[tuple[str, str]] = [
     ("Do you ship internationally?", "shipping_intl"),              # miss (one-off)
     ("What are your business hours?", "hours"),                     # miss (one-off)
 ]
+
+
+# ---------------------------------------------------------------------------
+# Coding-question stream
+#
+# Tests whether semantic caching works for developer Q&A. Code questions are a
+# harder case than support FAQs: a tiny wording change can change the correct
+# answer (language, library, sync vs async), so a cache that is too loose will
+# serve a WRONG answer.
+#
+# Each tuple is (query, group, expected) where expected is:
+#   "miss"  - first time this intent is seen (populates the cache)
+#   "hit"   - paraphrase of a cached intent; should be served from cache
+#   "trap"  - looks similar to a cached query but needs a DIFFERENT answer;
+#             a correct cache must MISS. A hit here is a false positive.
+# ---------------------------------------------------------------------------
+CODING_QUERIES: list[tuple[str, str, str]] = [
+    # --- reverse a string in Python ---
+    ("How do I reverse a string in Python?", "py_reverse_str", "miss"),
+    ("What's the easiest way to flip a string around in Python?", "py_reverse_str", "hit"),
+    ("Python code to reverse the characters of a string", "py_reverse_str", "hit"),
+    ("How do I reverse a string in JavaScript?", "js_reverse_str", "trap"),  # other language
+    ("How do I reverse a list in Python?", "py_reverse_list", "trap"),       # other data type
+
+    # --- read a file in Python ---
+    ("How do I read a text file line by line in Python?", "py_read_file", "miss"),
+    ("Python: iterate over each line of a file", "py_read_file", "hit"),
+    ("What's the proper way to open and loop through a file's lines in Python?", "py_read_file", "hit"),
+    ("How do I write text to a file in Python?", "py_write_file", "trap"),   # read vs write
+
+    # --- remove duplicates from a list ---
+    ("How do I remove duplicates from a list in Python?", "py_dedupe", "miss"),
+    ("Best way to get unique items from a Python list", "py_dedupe", "hit"),
+    ("Deduplicate a list while keeping the original order in Python", "py_dedupe_ordered", "trap"),  # extra constraint
+
+    # --- SQL ---
+    ("Write a SQL query to find the second highest salary", "sql_second_salary", "miss"),
+    ("How can I get the 2nd largest salary from an employees table in SQL?", "sql_second_salary", "hit"),
+    ("SQL query to find the highest salary per department", "sql_max_by_dept", "trap"),
+
+    # --- git ---
+    ("How do I undo my last git commit?", "git_undo_commit", "miss"),
+    ("Git: how to revert the most recent commit", "git_undo_commit", "hit"),
+    ("I committed by mistake, how do I take it back in git?", "git_undo_commit", "hit"),
+    ("How do I undo git add?", "git_unstage", "trap"),                       # different operation
+
+    # --- async / HTTP ---
+    ("How do I make an HTTP GET request in Python?", "py_http_get", "miss"),
+    ("Python example to call a REST API with GET", "py_http_get", "hit"),
+    ("How do I make an async HTTP GET request in Python?", "py_http_get_async", "trap"),  # sync vs async
+
+    # --- unique one-offs ---
+    ("Explain the difference between a mutex and a semaphore", "mutex_sem", "miss"),
+    ("What does the Rust borrow checker do?", "rust_borrow", "miss"),
+]

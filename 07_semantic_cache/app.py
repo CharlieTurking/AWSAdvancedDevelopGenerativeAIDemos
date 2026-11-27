@@ -39,7 +39,7 @@ from bedrock_client import (
     embed as bedrock_embed,
 )
 from cache import ExactCache, SemanticCache, offline_embed
-from sample_queries import SAMPLE_QUERIES
+from sample_queries import CODING_QUERIES, SAMPLE_QUERIES
 
 st.set_page_config(page_title="Semantic Cache × Bedrock", page_icon="🧠", layout="wide")
 
@@ -119,7 +119,7 @@ def get_answer(query: str) -> tuple[str, int]:
     return (f"[offline stub answer for: {query}]", ASSUMED_TOKENS_PER_MISS)
 
 
-def process(query: str):
+def process(query: str, expected: str | None = None):
     """Run one query through BOTH caches, calling the model only on a semantic miss."""
     exact = st.session_state.exact
     semantic = st.session_state.semantic
@@ -141,15 +141,21 @@ def process(query: str):
         decision = f"hit ← “{matched}” ({score:.2f})"
         billed = 0  # served from cache, no model tokens
 
-    st.session_state.log.append(
-        {
-            "Query": query,
-            "Exact cache": "hit" if exact_hit else "miss",
-            "Semantic cache": decision,
-            "Model tokens billed": billed,
-            "Best score": round(score, 3),
-        }
-    )
+    row = {
+        "Query": query,
+        "Exact cache": "hit" if exact_hit else "miss",
+        "Semantic cache": decision,
+        "Model tokens billed": billed,
+        "Best score": round(score, 3),
+    }
+    if expected:
+        got_hit = sem_answer is not None
+        want_hit = expected == "hit"
+        row["Expected"] = expected
+        row["Verdict"] = "✅ correct" if got_hit == want_hit else (
+            "❌ false hit" if got_hit else "❌ missed paraphrase"
+        )
+    st.session_state.log.append(row)
     return text, decision, score
 
 
@@ -189,10 +195,22 @@ with tab_stream:
         "Replays a stream of real-world-style queries where users phrase the same "
         "intent differently (password reset, order tracking, refunds)."
     )
+    stream_choice = st.radio(
+        "Stream", ["Support FAQs", "Coding questions"], horizontal=True
+    )
+    if stream_choice == "Coding questions":
+        st.caption(
+            "Includes 'trap' queries that look similar to a cached one but need a "
+            "different answer. A cache hit on a trap is a false hit (wrong answer)."
+        )
     if st.button("Run sample stream", type="primary"):
         try:
-            for query, _group in SAMPLE_QUERIES:
-                process(query)
+            if stream_choice == "Coding questions":
+                for query, _group, expected in CODING_QUERIES:
+                    process(query, expected)
+            else:
+                for query, _group in SAMPLE_QUERIES:
+                    process(query)
         except Exception as e:  # noqa: BLE001
             st.error(f"Bedrock call failed: {e}")
             st.info("Turn off 'Use Bedrock' to rehearse offline, or check access.")
